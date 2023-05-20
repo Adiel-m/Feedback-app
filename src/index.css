@@ -1,13 +1,511 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* **
+  The new CSS reset - version 1.7.3 (last updated 7.8.2022)
+  GitHub page: https://github.com/elad2412/the-new-css-reset
+** */
+/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+  - The "symbol *" part is to solve Firefox SVG sprite bug */
+*:where(
+    :not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
+  ) {
+  all: unset;
+  display: revert;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a,
+button {
+  cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-width: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input,
+textarea {
+  -webkit-user-select: auto;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+  -webkit-appearance: revert;
+  appearance: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+  color: unset;
+}
+
+/* fix the feature of 'hidden' attribute.
+  display:revert; revert to element instead of attribute */
+:where([hidden]) {
+  display: none;
+}
+
+/* revert for bug in Chromium browsers
+  - fix for the content editable attribute will work properly.
+  - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element */
+:where([contenteditable]:not([contenteditable='false'])) {
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+  -webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable='true']) {
+  -webkit-user-drag: element;
+}
+
+/* Feedback Styles*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+.c-white {
+  color: hsl(0 0% 100%);
+}
+.c-light {
+  color: hsl(0 0% 90%);
+}
+.c-dark {
+  color: hsl(0 0% 14%);
+}
+.c-gray {
+  color: hsl(0 0% 60%);
+}
+.c-gray-light {
+  color: hsl(0 0% 85%);
+}
+.c-gray-dark {
+  color: hsl(0 0% 25%);
+}
+.c-primary {
+  color: hsl(209 69% 46%);
+}
+.c-secondary {
+  color: hsl(299 69% 46%);
+}
+.c-success {
+  color: hsl(119 69% 46%);
+}
+.c-failure {
+  color: hsl(352 93% 53%);
+}
+.c-alert {
+  color: hsl(46 100% 48%);
+}
+.bg-c-white {
+  background-color: hsl(0 0% 100%);
+}
+.bg-c-light {
+  background-color: hsl(0 0% 90%);
+}
+.bg-c-dark {
+  background-color: hsl(0 0% 14%);
+}
+.bg-c-gray {
+  background-color: hsl(0 0% 60%);
+}
+.bg-c-gray-light {
+  background-color: hsl(0 0% 85%);
+}
+.bg-c-gray-dark {
+  background-color: hsl(0 0% 25%);
+}
+.bg-c-primary {
+  background-color: hsl(209 69% 46%);
+}
+.bg-c-secondary {
+  background-color: hsl(299 69% 46%);
+}
+.bg-c-success {
+  background-color: hsl(119 69% 46%);
+}
+.bg-c-failure {
+  background-color: hsl(352 93% 53%);
+}
+.bg-c-alert {
+  background-color: hsl(46 100% 48%);
+}
+
+:root {
+  /* colors (hsl--values)*/
+  --white: 0 0% 100%;
+  --light: 0 0% 90%;
+  --dark: 0 0% 14%;
+  --gray: 0 0% 60%;
+  --gray-light: 0 0% 85%;
+  --gray-dark: 0 0% 25%;
+  --primary: 209 69% 46%;
+  --secondary: 299 69% 46%;
+  --success: 119 69% 46%;
+  --failure: 352 93% 53%;
+  --alert: 46 100% 48%;
+  /* font-size */
+  --fs-display: 6em;
+  --fs-xxhuge: 4em;
+  --fs-xhuge: 3.5em;
+  --fs-huge: 3em;
+  --fs-xxlg: 2.5em;
+  --fs-xlg: 2em;
+  --fs-lg: 1.5em;
+  --fs-md: 1.25em;
+  --fs-sm: 1.125em;
+  --fs-xsm: 1em;
+  --fs-xxsm: 0.75em;
+  --fs-tiny: 0.625em;
+  /* font-weight */
+  --fw-bolder: 800;
+  --fw-bold: 700;
+  --fw-sbold: 600;
+  --fw-medium: 500;
+  --fw-normal: 400;
+  --fw-light: 300;
+  --fw-lighter: 200;
+  /* spacing (em) */
+  --sp-xxhuge: 6em;
+  --sp-xhuge: 4em;
+  --sp-huge: 3em;
+  --sp-xxlg: 2.5em;
+  --sp-xlg: 2em;
+  --sp-lg: 1.5em;
+  --sp-md: 1.25em;
+  --sp-sm: 1em;
+  --sp-xsm: 0.75em;
+  --sp-xxsm: 0.5em;
+  --sp-tiny: 0.25em;
+  --sp-none: 0em;
+  /* spacing prct (%) */
+  --sp-prct-0: 0%;
+  --sp-prct-1: 1%;
+  --sp-prct-2: 2%;
+  --sp-prct-3: 3%;
+  --sp-prct-4: 4%;
+  --sp-prct-5: 5%;
+  --sp-prct-6: 6%;
+  --sp-prct-7: 7%;
+  --sp-prct-8: 8%;
+  --sp-prct-9: 9%;
+  --sp-prct-10: 10%;
+  /* borders */
+  --el-border: 0.125em solid hsl(var(--primary));
+  /* border-radius */
+  --br-round: 100vw;
+  --br-xxhuge: var(--sp-xxhuge);
+  --br-xhuge: var(--sp-xhuge);
+  --br-huge: var(--sp-huge);
+  --br-xxlg: var(--sp-xxlg);
+  --br-xlg: var(--sp-xlg);
+  --br-lg: var(--sp-lg);
+  --br-md: var(--sp-md);
+  --br-sm: var(--sp-sm);
+  --br-xsm: var(--sp-xsm);
+  --br-xxsm: var(--sp-xxsm);
+  --br-tiny: var(--sp-tiny);
+  --br-none: var(--sp-none);
+}
+
+.fs-display,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: var(--fw-sbold);
+  margin: 0;
+}
+
+h1,
+.h1 {
+  font-size: var(--fs-huge);
+}
+
+h2,
+.h2 {
+  font-size: var(--fs-xlg);
+}
+
+h3,
+.h3 {
+  font-size: var(--fs-lg);
+}
+
+h4,
+.h4 {
+  font-size: var(--fs-sm);
+}
+
+h5,
+.h5 {
+  font-size: var(--fs-xsm);
+}
+
+h6,
+.h6 {
+  font-size: var(--fs-xxsm);
+}
+
+p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: hsl(var(--white));
+  color: hsl(var(--dark));
+  line-height: 1.6;
+}
+
+ul {
+  list-style: none;
+}
+
+a,
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  background: unset;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+optgroup:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: var(--el-border);
+  outline-color: var(--secondary);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+form h3 {
+  text-align: center;
+}
+
+.input-grp {
+  display: flex;
+  gap: var(--sp-md);
+  justify-content: space-between;
+}
+
+.input-grp input {
+  width: 100%;
+  padding-inline: var(--sp-xsm);
+  background-color: hsl(var(--white));
+  border-radius: var(--br-tiny);
+}
+
+section.lg {
+  padding-block: var(--sp-prct-6);
+}
+
+section.md {
+  padding-block: var(--sp-prct-4);
+}
+section.sm {
+  padding-block: var(--sp-prct-2);
+}
+section.xsm {
+  padding-block: var(--sp-prct-1);
+}
+
+.container {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 5%;
+}
+
+#navbar.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1920px;
+}
+
+#navbar ul {
+  display: flex;
+  gap: var(--sp-xsm);
+}
+
+#navbar li {
+  padding-block: var(--sp-md);
+}
+#navbar a.active {
+  color: hsl(var(--white));
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-lg) var(--sp-lg) var(--sp-xxlg);
+  margin-block: var(--sp-prct-2);
+  background-color: hsl(var(--primary) / 0.25);
+  border-radius: var(--br-xxsm);
+  gap: var(--sp-sm);
+}
+
+.card.reverse {
+  color: hsl(var(--white));
+  background-color: hsl(var(--primary));
+}
+
+.btn {
+  padding-block: var(--sp-xxsm);
+  padding-inline: var(--sp-lg);
+  border-radius: var(--br-tiny);
+  cursor: pointer;
+  line-height: 1;
+  background-color: hsl(var(--white));
+  transition: transform 0.2s;
+}
+
+.btn-white {
+  background-color: hsl(var(--white));
+  color: hsl(var(--dark));
+}
+.btn-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--white));
+}
+
+.btn-secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--white));
+}
+
+:disabled {
+  background-color: hsl(var(--gray-light));
+  color: hsl(var(--gray));
+  cursor: auto;
+}
+
+.btn-close {
+  position: absolute;
+  inset-block-start: 1em;
+  inset-inline-end: 1em;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1;
+  text-align: center;
+  background-color: hsl(var(--white));
+  border-radius: var(--br-round);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-close:hover {
+  transform: rotate(90deg);
+  color: hsl(var(--failure));
+}
+
+.btn-edit {
+  position: absolute;
+  inset-block-end: 1em;
+  inset-inline-start: 1em;
+  width: 1.2em;
+  height: 1.2em;
+  margin-inline-start: var(--sp-tiny);
+  line-height: 1;
+  opacity: 0.6;
+  text-align: center;
+  border-radius: var(--br-round);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-edit:hover {
+  transform: rotate(90deg);
+  color: hsl(var(--failure));
+}
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-prct-2);
+}
+
+.rating li,
+.num-display {
+  position: relative;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  background-color: hsl(var(--light));
+  border-radius: var(--br-round);
+  transition: 0.3s;
+}
+
+.rating li label {
+  position: absolute;
+  inset: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--br-round);
+  cursor: pointer;
+}
+
+.rating li:hover,
+.num-display {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--white));
+}
+
+[type='radio']:checked ~ label {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--white));
+}
+
+.feed-stats {
+  padding: var(--sp-xsm);
+  display: flex;
+  justify-content: space-between;
 }
