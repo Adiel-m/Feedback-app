@@ -26,12 +26,12 @@ function FeedbackForm() {
       setBtnDisabled(true)
       setAlertMsg(null)
       // First validation
-    } else if (value !== '' && value.trim().length <= 10) {
-      setBtnDisabled(true)
+    } else if (value.trim().length < 10) {
       setAlertMsg('Text must be at least 10 characters')
+      setBtnDisabled(true)
     } else {
-      setBtnDisabled(false)
       setAlertMsg(null)
+      setBtnDisabled(false)
     }
     setText(value)
   }
@@ -51,6 +51,8 @@ function FeedbackForm() {
         addFeedback(newFeedback)
       }
 
+      setBtnDisabled(true)
+      setRating(10)
       setText('')
     }
   }
@@ -59,11 +61,7 @@ function FeedbackForm() {
     <Card>
       <form onSubmit={handleSubmit}>
         <h3>How would you like to rate your service with us?</h3>
-        <RatingSelect
-          select={(rating) => {
-            setRating(rating)
-          }}
-        />
+        <RatingSelect select={setRating} selected={rating} />
         <div className="input-grp">
           <input
             type="text"
